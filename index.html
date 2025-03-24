@@ -32,14 +32,16 @@
           .getElementById("login-button")
           .addEventListener("click", () => {
             fiefAuth.redirectToLogin(
-              "https://intention-lab.github.io/callback.html"
+              "https://gcuendet.github.io/intention-lab.github.io/callback.html"
             );
           });
 
         document
           .getElementById("logout-button")
           .addEventListener("click", () => {
-            fiefAuth.logout("https://intention-lab.github.io");
+            fiefAuth.logout(
+              "https://gcuendet.github.io/intention-lab.github.io/"
+            );
           });
 
         const userinfo = fiefAuth.getUserinfo();
