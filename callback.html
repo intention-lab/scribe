@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/@fief/fief/build/index.umd.js"></script>
+    <script>
+      const initialize = () => {
+        const fiefClient = new fief.Fief({
+          baseURL: "https://server-production-4386.up.railway.app/",
+          clientId: "jayyxhjl5tq3uvqhuw5z0n2jg7dvfbmx",
+        });
+        const fiefAuth = new fief.browser.FiefAuth(fiefClient);
+
+        fiefAuth
+          .authCallback("https://intention-lab.github.io/callback.html")
+          .then(() => {
+            window.location.href = "https://intention-lab.github.io";
+          });
+      };
+
+      document.addEventListener("DOMContentLoaded", initialize, false);
+    </script>
+  </body>
+</html>
