@@ -11,6 +11,12 @@ async function uploadAudio() {
     const formData = new FormData();
     formData.append('audio', file);
     
+    const fiefClient = new fief.Fief({
+        baseURL: "https://server-production-4386.up.railway.app",
+        clientId: "jayyxhjl5tq3uvqhuw5z0n2jg7dvfbmx",
+      });
+      const fiefAuth = new fief.browser.FiefAuth(fiefClient);
+
     const tokenInfo = fiefAuth.getTokenInfo();
     const accessToken = tokenInfo.access_token;
 
