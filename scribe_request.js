@@ -12,7 +12,7 @@ async function uploadAudio() {
     formData.append('audio', file);
     
     const fiefClient = new fief.Fief({
-        baseURL: "https://server-production-4386.up.railway.app",
+        baseURL: "https://auth.intention-lab.ch",
         clientId: "jayyxhjl5tq3uvqhuw5z0n2jg7dvfbmx",
       });
       const fiefAuth = new fief.browser.FiefAuth(fiefClient);
