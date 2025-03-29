@@ -14,9 +14,9 @@
         const fiefAuth = new fief.browser.FiefAuth(fiefClient);
 
         fiefAuth
-          .authCallback("https://intention-lab.github.io/callback.html")
+          .authCallback("https://www.intention-lab.ch/scribe/callback.html")
           .then(() => {
-            window.location.href = "https://intention-lab.github.io";
+            window.location.href = "https://www.intention-lab.ch/scribe";
           })
           .catch(() => {
             console.log("error");

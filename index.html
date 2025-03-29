@@ -4,10 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Scribe</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body>
-    <div id="logged-out" style="disply: none">
-      <h1>You are not logged in</h1>
+    <div id="logged-out" style="display: none">
+      <h1 class="text-3xl font-bold underline">You are not logged in</h1>
       <button type="button" id="login-button">Login</button>
     </div>
     <div id="logged-in" style="display: none">
@@ -32,14 +33,14 @@
           .getElementById("login-button")
           .addEventListener("click", () => {
             fiefAuth.redirectToLogin(
-              "https://intention-lab.github.io/callback.html"
+              "https://www.intention-lab.ch/scribe/callback.html"
             );
           });
 
         document
           .getElementById("logout-button")
           .addEventListener("click", () => {
-            fiefAuth.logout("https://intention-lab.github.io");
+            fiefAuth.logout("https://www.intention-lab.ch/scribe");
           });
 
         const userinfo = fiefAuth.getUserinfo();
