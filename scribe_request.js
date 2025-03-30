@@ -26,6 +26,8 @@ async function uploadAudio() {
             body: formData,
             headers: {
                 "Authorization": `Bearer ${accessToken}`,
+                "Origin": "https://www.intention-lab.ch",
+                "Access-Control-Request-Method": "POST",
             }
         });
 
