@@ -21,7 +21,7 @@ async function uploadAudio() {
     const accessToken = tokenInfo.access_token;
 
     try {
-        const response = await fetch('https://api.intention-lab.ch/scribe/api/v1/audiomessage', {
+        const response = await fetch('https://api.intention-lab.ch/api/v1/audiomessage', {
             method: 'POST',
             body: formData,
             headers: {
