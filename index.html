@@ -164,28 +164,6 @@
       };
 
       document.addEventListener("DOMContentLoaded", initialize, false);
-
-      // Update uploadAudio function to handle progress
-      window.uploadAudio = async () => {
-        const fileInput = document.getElementById('audioFile');
-        const file = fileInput.files[0];
-        if (!file) return;
-        const uploadProgress = document.getElementById('upload-progress');
-        const progressBar = document.getElementById('progress-bar-fill');
-        uploadProgress.classList.remove('hidden');
-
-        // Simulate progress (replace with actual upload progress)
-        let progress = 0;
-        const interval = setInterval(() => {
-          progress += 10;
-          if (progress <= 100) {
-            progressBar.style.width = `${progress}%`;
-          } else {
-            clearInterval(interval);
-            // Handle success/error here
-          }
-        }, 500);
-      };
     </script>
   </body>
 </html>
