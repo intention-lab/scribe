@@ -132,9 +132,11 @@
           const file = e.dataTransfer.files[0];
           if (file && file.type.startsWith('audio/')) {
             audioFileInput.files = e.dataTransfer.files;
-            uploadAudio();
           }
         });
+
+        // File input handler for upload
+        document.getElementById('audioFile').addEventListener('change', uploadAudio);
 
         // Login/Logout handlers
         document.getElementById("login-button").addEventListener("click", () => {
@@ -168,7 +170,6 @@
         const fileInput = document.getElementById('audioFile');
         const file = fileInput.files[0];
         if (!file) return;
-
         const uploadProgress = document.getElementById('upload-progress');
         const progressBar = document.getElementById('progress-bar-fill');
         uploadProgress.classList.remove('hidden');
