@@ -52,7 +52,18 @@ async function uploadAudio() {
                             if (statusResponse.ok) {
                                 const statusData = await statusResponse.json();
                                 if (statusData.status === "success") {
-                                    resultDiv.textContent = statusData.string || 'Transcription complete, but no result.';
+                                    // Call /summary endpoint to get the transcription result
+                                    const summaryResponse = await fetch(`https://api.intention-lab.ch/api/v1/audiomessage/summary?transcription=${statusData.string}`, {
+                                        method: 'GET',
+                                        headers: {
+                                            "Authorization": `Bearer ${token}`,
+                                            "Origin": "https://www.intention-lab.ch",
+                                            "Access-Control-Request-Method": "GET",
+                                            "Content-Type": "application/json"
+                                          }
+                                        });
+                                    resultDiv.textContent = summaryResponse || 'Transcription complete, but no result.';
+
                                     polling = false;
                                 } else if (statusData.status === "failed" || statusData.status === "canceled") {
                                     resultDiv.textContent = 'Transcription failed.';
