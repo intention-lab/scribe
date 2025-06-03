@@ -21,7 +21,7 @@ async function uploadAudio() {
     const accessToken = tokenInfo.access_token;
 
     try {
-        const response = await fetch('https://api.intention-lab.ch/api/v1/audiomessage', {
+        const response = await fetch('https://api.intention-lab.ch/api/v1/audiomessage/', {
             method: 'POST',
             body: formData,
             headers: {
@@ -33,7 +33,49 @@ async function uploadAudio() {
 
         if (response.ok) {
             const data = await response.json();
-            resultDiv.textContent = `API Response: ${JSON.stringify(data)}`;
+            if (data.body.batch_id) {
+                resultDiv.textContent = 'File uploaded. Waiting for transcription...';
+                // Start polling for transcription status
+                const pollTranscriptionStatus = async (batchId, token, resultDiv) => {
+                    let polling = true;
+                    while (polling) {
+                        try {
+                            const statusResponse = await fetch(`https://api.intention-lab.ch/api/v1/audiomessage/transcription/?batch_id=${batchId}`, {
+                                method: 'GET',
+                                headers: {
+                                    "Authorization": `Bearer ${token}`,
+                                    "Origin": "https://www.intention-lab.ch",
+                                    "Access-Control-Request-Method": "GET",
+                                    "Content-Type": "application/json"
+                                }
+                            });
+                            if (statusResponse.ok) {
+                                const statusData = await statusResponse.json();
+                                if (statusData.status === "success") {
+                                    resultDiv.textContent = statusData.string || 'Transcription complete, but no result.';
+                                    polling = false;
+                                } else if (statusData.status === "failed" || statusData.status === "canceled") {
+                                    resultDiv.textContent = 'Transcription failed.';
+                                    polling = false;
+                                } else {
+                                    // Still processing
+                                    await new Promise(res => setTimeout(res, 2000));
+                                }
+                            } else {
+                                resultDiv.textContent = 'Error checking transcription status.';
+                                polling = false;
+                            }
+                        } catch (err) {
+                            resultDiv.textContent = `Error: ${err.message}`;
+                            polling = false;
+                        }
+                    }
+                };
+                pollTranscriptionStatus(data.body.batch_id, accessToken, resultDiv);
+
+            } else {
+                resultDiv.textContent = `Unexpected API response: ${JSON.stringify(data)}`;
+            }
         } else {
             resultDiv.textContent = 'Error uploading file.';
         }
