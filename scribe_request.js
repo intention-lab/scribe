@@ -40,7 +40,7 @@ async function uploadAudio() {
                     let polling = true;
                     while (polling) {
                         try {
-                            const statusResponse = await fetch(`https://api.intention-lab.ch/api/v1/audiomessage/transcription/?batch_id=${batchId}`, {
+                            statusResponse = await fetch(`https://api.intention-lab.ch/api/v1/audiomessage/transcription/?batch_id=${batchId}`, {
                                 method: 'GET',
                                 headers: {
                                     "Authorization": `Bearer ${token}`,
@@ -50,7 +50,7 @@ async function uploadAudio() {
                                 }
                             });
                             if (statusResponse.ok) {
-                                const statusData = await statusResponse.json();
+                                statusData = await statusResponse.json();
                                 if (statusData.status === "success") {
                                     // Call /summary endpoint to get the transcription result
                                     const summaryResponse = await fetch(`https://api.intention-lab.ch/api/v1/audiomessage/summary?transcription=${statusData.string}`, {
