@@ -32,65 +32,21 @@ async function uploadAudio() {
         });
 
         if (response.ok) {
-            const data = await response.json();
-            if (data.body.batch_id) {
-                resultDiv.textContent = 'File uploaded. Waiting for transcription...';
-                // Start polling for transcription status
-                const pollTranscriptionStatus = async (batchId, token, resultDiv) => {
-                    let polling = true;
-                    while (polling) {
-                        try {
-                            statusResponse = await fetch(`https://api.intention-lab.ch/api/v1/audiomessage/transcription/?batch_id=${batchId}`, {
-                                method: 'GET',
-                                headers: {
-                                    "Authorization": `Bearer ${token}`,
-                                    "Origin": "https://www.intention-lab.ch",
-                                    "Access-Control-Request-Method": "GET",
-                                    "Content-Type": "application/json"
-                                }
-                            });
-                            if (statusResponse.ok) {
-                                statusData = await statusResponse.json();
-                                if (statusData.status === "success") {
-                                    // Call /summary endpoint to get the transcription result
-                                    const summaryResponse = await fetch(`https://api.intention-lab.ch/api/v1/audiomessage/summary?transcription=${statusData.string}`, {
-                                        method: 'GET',
-                                        headers: {
-                                            "Authorization": `Bearer ${token}`,
-                                            "Origin": "https://www.intention-lab.ch",
-                                            "Access-Control-Request-Method": "GET",
-                                            "Content-Type": "application/json"
-                                          }
-                                        });
-                                    resultDiv.textContent = summaryResponse || 'Transcription complete, but no result.';
-
-                                    polling = false;
-                                } else if (statusData.status === "failed" || statusData.status === "canceled") {
-                                    resultDiv.textContent = 'Transcription failed.';
-                                    polling = false;
-                                } else {
-                                    // Still processing
-                                    await new Promise(res => setTimeout(res, 2000));
-                                }
-                            } else {
-                                resultDiv.textContent = 'Error checking transcription status.';
-                                polling = false;
-                            }
-                        } catch (err) {
-                            resultDiv.textContent = `Error: ${err.message}`;
-                            polling = false;
-                        }
+            const data = await response;
+            // Call /summary endpoint to get the transcription result
+            const summaryResponse = await fetch(`https://api.intention-lab.ch/api/v1/audiomessage/summary?transcription=${data}`, {
+                method: 'GET',
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Origin": "https://www.intention-lab.ch",
+                    "Access-Control-Request-Method": "GET",
+                    "Content-Type": "application/json"
                     }
-                };
-                pollTranscriptionStatus(data.body.batch_id, accessToken, resultDiv);
-
-            } else {
-                resultDiv.textContent = `Unexpected API response: ${JSON.stringify(data)}`;
-            }
-        } else {
-            resultDiv.textContent = 'Error uploading file.';
+                });
+            resultDiv.textContent = summaryResponse || 'Transcription complete, but no result.';
         }
-    } catch (error) {
-        resultDiv.textContent = `Error: ${error.message}`;
+    }
+    catch (err) {
+        resultDiv.textContent = `Error: ${err.message}`;
     }
 }
