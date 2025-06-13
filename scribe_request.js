@@ -31,20 +31,17 @@ async function uploadAudio() {
             }
         });
 
-        if (response.ok) {
-            const data = await response;
-            // Call /summary endpoint to get the transcription result
-            const summaryResponse = await fetch(`https://api.intention-lab.ch/api/v1/audiomessage/summary?transcription=${data}`, {
-                method: 'GET',
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Origin": "https://www.intention-lab.ch",
-                    "Access-Control-Request-Method": "GET",
-                    "Content-Type": "application/json"
-                    }
-                });
-            resultDiv.textContent = summaryResponse || 'Transcription complete, but no result.';
-        }
+        // Call /summary endpoint to get the transcription result
+        const summaryResponse = await fetch(`https://api.intention-lab.ch/api/v1/audiomessage/summary?transcription=${response}`, {
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Origin": "https://www.intention-lab.ch",
+                "Access-Control-Request-Method": "GET",
+                "Content-Type": "application/json"
+                }
+            });
+        resultDiv.textContent = summaryResponse || 'Transcription complete, but no result.';
     }
     catch (err) {
         resultDiv.textContent = `Error: ${err.message}`;
