@@ -8,7 +8,7 @@ This repo provides a very simple **static** (web) UI for Scribe with the followi
 It does **not** contain any server mechanism. The simplest might be to use:
 
 ```
-python3 -m http.server 8000
+npm run dev  # python3 -m http.server 8000
 ```
 
 ## Tailwind CSS
@@ -22,7 +22,7 @@ npm install tailwindcss @tailwindcss/cli
 Re-generate the static `public/css/main.css` file with:
 
 ```
-./update_css.sh
+npm run refresh-css
 ```
 
 See [the documentation](https://tailwindcss.com) for more details.
