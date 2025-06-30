@@ -1,61 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scribe</title>
+    <title>SPA SDK Sample</title>
+    <link rel="stylesheet" type="text/css" href="public/css/main.css" />
   </head>
+
   <body>
-    <div id="logged-out" style="disply: none">
-      <h1>You are not logged in</h1>
-      <button type="button" id="login-button">Login</button>
+    <h2>SPA Authentication Sample</h2>
+    <p>Welcome to our page!</p>
+    <button id="btn-login" disabled="true" onclick="login()">Log in</button>
+    <button id="btn-logout" disabled="true" onclick="logout()">Log out</button>
+
+    <div class="hidden" id="gated-content">
+      <p>
+        You're seeing this content because you're currently
+        <strong>logged in</strong>.
+      </p>
+      <label>
+        Access token:
+        <pre id="ipt-access-token"></pre>
+      </label>
+      <label>
+        User profile:
+        <pre id="ipt-user-profile"></pre>
+      </label>
     </div>
-    <div id="logged-in" style="display: none">
-      <h1>Hello <span id="user-email"></span> 👋</h1>
-      <input type="file" id="audioFile" accept="audio/*" />
-      <button onclick="uploadAudio()">Upload Audio</button>
-      <div id="result"></div>
 
-      <script src="scribe_request.js"></script>
-      <button type="button" id="logout-button">Logout</button>
-    </div>
-    <script src="https://unpkg.com/@fief/fief/build/index.umd.js"></script>
-    <script>
-      const initialize = () => {
-        const fiefClient = new fief.Fief({
-          baseURL: "https://server-production-4386.up.railway.app",
-          clientId: "jayyxhjl5tq3uvqhuw5z0n2jg7dvfbmx",
-        });
-        const fiefAuth = new fief.browser.FiefAuth(fiefClient);
-
-        document
-          .getElementById("login-button")
-          .addEventListener("click", () => {
-            fiefAuth.redirectToLogin(
-              "https://intention-lab.github.io/callback.html"
-            );
-          });
-
-        document
-          .getElementById("logout-button")
-          .addEventListener("click", () => {
-            fiefAuth.logout("https://intention-lab.github.io");
-          });
-
-        const userinfo = fiefAuth.getUserinfo();
-
-        if (userinfo !== null) {
-          document.getElementById("logged-in").style.display = "block";
-          document.getElementById("logged-out").style.display = "none";
-
-          document.getElementById("user-email").textContent = userinfo.email;
-        } else {
-          document.getElementById("logged-in").style.display = "none";
-          document.getElementById("logged-out").style.display = "block";
-        }
-      };
-
-      document.addEventListener("DOMContentLoaded", initialize, false);
-    </script>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+    <script src="public/js/app.js"></script>
   </body>
 </html>
