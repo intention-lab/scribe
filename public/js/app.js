@@ -119,6 +119,11 @@ const updateUI = async () => {
   
   // NEW - add logic to show/hide gated content after authentication
   if (isAuthenticated) {
+    document.getElementById("btn-login").classList.remove("hidden");
+    document.getElementById("btn-login").style.display = "none";
+    document.getElementById("btn-logout").classList.add("hidden");
+    document.getElementById("btn-logout").style.display = "inline-flex";
+
     document.getElementById("gated-content").classList.remove("hidden");
 
     document.getElementById(
@@ -130,6 +135,11 @@ const updateUI = async () => {
     );
 
   } else {
+    document.getElementById("btn-login").classList.add("hidden");
+    document.getElementById("btn-login").style.display = "inline-flex";
+    document.getElementById("btn-logout").classList.remove("hidden");
+    document.getElementById("btn-logout").style.display = "none";
+
     document.getElementById("gated-content").classList.add("hidden");
   }
 };
