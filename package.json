@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.11",
+    "tailwindcss": "^4.1.11"
+  },
+  "scripts": {
+    "refresh-css": "npx @tailwindcss/cli -i ./tailwind/main.css -o ./public/css/main.css",
+    "dev": "python3 -m http.server 8000"
+  }
+}
