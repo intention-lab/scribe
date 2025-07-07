@@ -48,7 +48,7 @@ document.addEventListener("alpine:init", () => {
 
         const options = {
           authorizationParams: {
-            redirect_uri: window.location.origin,
+            redirect_uri: window.location.href,
           },
         };
 
@@ -70,7 +70,7 @@ document.addEventListener("alpine:init", () => {
         console.log("Logging out");
         await this._auth0Client.logout({
           logoutParams: {
-            returnTo: window.location.origin,
+            returnTo: window.location.href,
           },
         });
       } catch (err) {
