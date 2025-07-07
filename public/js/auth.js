@@ -82,7 +82,7 @@ document.addEventListener("alpine:init", () => {
      * Retrieves the auth configuration from the server
      */
     async fetchAuthConfig() {
-      return await fetch("/auth_config.json");
+      return await fetch("scribe/auth_config.json");
     },
 
     /**
