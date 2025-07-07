@@ -30,6 +30,15 @@ document.addEventListener("alpine:init", () => {
       this.isAuthenticated = await this._auth0Client.isAuthenticated();
     },
 
+    async get_token() {
+      try {
+        return await this._auth0Client.getTokenSilently();
+      } catch (err) {
+        console.log("Error getting token", err);
+        return null;
+      }
+    },
+
     /**
      * Starts the authentication flow
      */
@@ -86,6 +95,9 @@ document.addEventListener("alpine:init", () => {
       this._auth0Client = await auth0.createAuth0Client({
         domain: config.domain,
         clientId: config.clientId,
+        authorizationParams: {
+          audience: config.audience,
+        },
       });
     },
   });

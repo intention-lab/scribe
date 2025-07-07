@@ -1,4 +1,5 @@
 {
-  "domain": "dev-wehsblcfehuefwpw.us.auth0.com",
-  "clientId": "H5gF76OgSsK09P8QtRsHiAu1uTte6ArU"
+  "domain": "auth.intention-lab.ch",
+  "clientId": "H5gF76OgSsK09P8QtRsHiAu1uTte6ArU",
+  "audience": "https://api.intention-lab.ch/scribe"
 }

@@ -63,11 +63,14 @@
             User profile:
             <pre x-text="JSON.stringify($store.auth.user, null, 4)"></pre>
           </label>
+          <input type="file" id="audioFile" accept="audio/*" />
+          <button onclick="uploadAudio()">Upload Audio</button>
         </div>
       </main>
     </div>
     <!-- Scripts -->
     <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
     <script src="public/js/auth.js"></script>
+    <script src="public/js/upload_audio.js"></script>
   </body>
 </html>
