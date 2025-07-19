@@ -15,7 +15,7 @@ async function uploadAudio() {
 
   try {
     const response = await fetch(
-      "https://api.intention-lab.ch/scribe/api/v1/audiomessage",
+      "https://api.intention-lab.ch/api/v1/audiomessage",
       {
         method: "POST",
         body: formData,
