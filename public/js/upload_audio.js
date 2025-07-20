@@ -15,14 +15,13 @@ async function uploadAudio() {
 
   try {
     const response = await fetch(
-      "https://api.intention-lab.ch/api/v1/audiomessage",
+      "https://api.intention-lab.ch/api/v1/audiomessage/",
       {
         method: "POST",
         body: formData,
         headers: {
           Authorization: `Bearer ${accessToken}`,
           Origin: "https://intention-lab.github.io",
-          "Access-Control-Request-Method": "POST",
         },
       }
     );
